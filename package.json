@@ -1,0 +1,25 @@
+ {
+  "author"      : "Wira Perdana <wira@karyaanilo.com.com>",
+  "name"        : "ah_anylink",
+  "description" : "gateway adapters template using actionherojs",
+  "version"     : "1.0.0",
+  "engines"     : {
+    "node": ">=0.10.0"
+  },
+  "dependencies" : {
+    "actionhero" : "10.0.3",
+    "ws"         : "latest",
+    "grunt"      : "latest"
+  },
+  "devDependencies" : {
+    "mocha"  : "latest",
+    "should" : "latest"
+  },
+  "scripts" : {
+    "help"         : "actionhero help",
+    "start"        : "actionhero start",
+    "actionhero"   : "actionhero",
+    "startCluster" : "actionhero startCluster",
+    "test"         : "mocha"
+  }
+}
