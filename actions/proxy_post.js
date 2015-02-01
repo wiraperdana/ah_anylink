@@ -1,4 +1,4 @@
-var VERTICLE_ID = "ANYLINK.GET.SERVER";
+var VERTICLE_ID = "ANYLINK.POST.PROXY";
 
 // var inputs = {
 //   message: {
@@ -10,8 +10,8 @@ var VERTICLE_ID = "ANYLINK.GET.SERVER";
 // };
 
 exports.action = {
-  name:                   'get_server',
-  description:            'get_server',
+  name:                   'proxy_post',
+  description:            'proxy_post',
   blockedConnectionTypes: [],
   outputExample:          {},
   matchExtensionMimeType: false,
@@ -21,14 +21,14 @@ exports.action = {
   inputs: {},
 
   run: function(api, connection, next){
-    
-    api.log(api.moment.now() + " - " + VERTICLE_ID + " > Request received > ", "info", connection.rawConnection.params.query);
+
+    api.log(api.moment.now() + " - " + VERTICLE_ID + " > Request received > ", "info", connection.params);
 
     // RECEIVE REQUEST PARAMETERS
-    var message = connection.rawConnection.params.query.message;
+    var message = connection.params.message;
 
-    // should send the request to ANYLINK.PROCESSOR via bus to be processed
-    var channel = "ANYLINK.IN.PROCESSOR";
+    // should send the request to ANYLINK.MEDIATOR via bus
+    var channel = "ANYLINK.IN.MEDIATOR";
     api.log(api.moment.now() + " - " + VERTICLE_ID + " > Publish to channel >", "info", { channel: channel, message: message });
     var payload = {
         messageType : channel,
@@ -39,7 +39,7 @@ exports.action = {
       };
     api.redis.publish(payload);
 
-    // SUBSCRIBE TO "ANYLINK.GET.SERVER" CHANNEL
+    // SUBSCRIBE TO "ANYLINK.POST.PROXY" CHANNEL
     var channel = VERTICLE_ID + "/" + connection.id;
     api.log(api.moment.now() + " - " + VERTICLE_ID + " > Subscribe to channel >", "info", channel);
     api.redis.subsciptionHandlers[channel] = function(payload) {
@@ -56,6 +56,5 @@ exports.action = {
       next(connection, true);
          
     }
-
   }
 };

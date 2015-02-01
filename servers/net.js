@@ -118,7 +118,7 @@ var initialize = function(api, options, next){
   /////////////
   
   var parseRequest = function(connection, line){
-    connection.params.action = "net_server";
+    connection.params.action = "proxy_net";
     connection.rawConnection.socketDataString= line.toString();
     server.processAction(connection);
   }

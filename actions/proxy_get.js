@@ -1,6 +1,4 @@
-var VERTICLE_ID = "ANYLINK.NET.SERVER";
-
-var util = require('util');
+var VERTICLE_ID = "ANYLINK.GET.PROXY";
 
 // var inputs = {
 //   message: {
@@ -12,8 +10,8 @@ var util = require('util');
 // };
 
 exports.action = {
-  name:                   'net_server',
-  description:            'net_server',
+  name:                   'proxy_get',
+  description:            'proxy_get',
   blockedConnectionTypes: [],
   outputExample:          {},
   matchExtensionMimeType: false,
@@ -24,13 +22,13 @@ exports.action = {
 
   run: function(api, connection, next){
     
-    api.log(api.moment.now() + " - " + VERTICLE_ID + " > Request received > ", "info", connection.params);
+    api.log(api.moment.now() + " - " + VERTICLE_ID + " > Request received > ", "info", connection.rawConnection.params.query);
 
     // RECEIVE REQUEST PARAMETERS
-    var message = connection.rawConnection.socketDataString;
+    var message = connection.rawConnection.params.query.message;
 
-    // should send the request to ANYLINK.PROCESSOR via bus to be processed
-    var channel = "ANYLINK.IN.PROCESSOR";
+    // should send the request to ANYLINK.MEDIATOR via bus to be processed
+    var channel = "ANYLINK.IN.MEDIATOR";
     api.log(api.moment.now() + " - " + VERTICLE_ID + " > Publish to channel >", "info", { channel: channel, message: message });
     var payload = {
         messageType : channel,
@@ -41,7 +39,7 @@ exports.action = {
       };
     api.redis.publish(payload);
 
-    // SUBSCRIBE TO "ANYLINK.NET.SERVER" CHANNEL
+    // SUBSCRIBE TO "ANYLINK.GET.PROXY" CHANNEL
     var channel = VERTICLE_ID + "/" + connection.id;
     api.log(api.moment.now() + " - " + VERTICLE_ID + " > Subscribe to channel >", "info", channel);
     api.redis.subsciptionHandlers[channel] = function(payload) {
@@ -50,6 +48,7 @@ exports.action = {
 
       // DO SOMETHING HERE
 
+      connection.rawConnection.responseHeaders.push(['Content-Type', 'text/plain']);
       connection.response = payload.message;
 
       api.redis.client.unsubscribe(channel);

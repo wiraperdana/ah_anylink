@@ -39,11 +39,11 @@ exports.default = {
       ---------------------- */
 
       get: [
-        { path: '/get', action: 'get_server' }
+        { path: '/get', action: 'proxy_get' }
       ],
 
       post: [
-        { path: '/post', action: 'post_server' }
+        { path: '/post', action: 'proxy_post' }
       ]
       
     }

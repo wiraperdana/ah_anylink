@@ -1,4 +1,4 @@
-var VERTICLE_ID = "ANYLINK.GET.CLIENT";
+var VERTICLE_ID = "ANYLINK.POST.ENDPOINT";
 
 var HOST_ENDPOINT = "http://localhost:9001/api/anylink/dummy";
 
@@ -10,7 +10,7 @@ module.exports = {
   stopPriority:  1000,
   initialize: function(api, next){
     
-    // should receive message from ANYLINK.IN.PROCESSOR via bus then send it to HOST
+    // should receive message from ANYLINK.IN.MEDIATOR via bus then send it to HOST
     var channel = VERTICLE_ID;
     api.log(api.moment.now() + " - " + VERTICLE_ID + " > Listening on channel >", "info", channel);
     api.redis.subsciptionHandlers[channel] = function(payload) {
@@ -20,8 +20,8 @@ module.exports = {
       // DO SOMETHING HERE
 
       // CALL HOST
-      unirest.get(HOST_ENDPOINT)
-      .query({
+      unirest.post(HOST_ENDPOINT)
+      .send({
         message: payload.message
       })
       .end(function(result) {
@@ -37,8 +37,8 @@ module.exports = {
 
         // DO SOMETHING HERE
 
-        // forward HOST response to ANYLINK.OUT.PROCESSOR via bus to be processed
-        var channel = "ANYLINK.OUT.PROCESSOR";
+        // forward HOST response to ANYLINK.OUT.MEDIATOR via bus to be processed
+        var channel = "ANYLINK.OUT.MEDIATOR";
         api.log(api.moment.now() + " - " + VERTICLE_ID + " > Publish to channel >", "info", { channel: channel, message: response });
         payload.messageType = channel;
         payload.message = response;

@@ -1,12 +1,12 @@
-var VERTICLE_ID = "ANYLINK.IN.PROCESSOR";
+var VERTICLE_ID = "ANYLINK.OUT.MEDIATOR";
 
 module.exports = {
-  loadPriority:  800,
+  loadPriority:  900,
   startPriority: 1000,
   stopPriority:  1000,
   initialize: function(api, next){
 
-    // should receive request from ANYLINK.SERVER
+    // should receive request from ANYLINK.CLIENT
     var channel = VERTICLE_ID;
     api.log(api.moment.now() + " - " + VERTICLE_ID + " > Listening on channel >", "info", channel);
     api.redis.subsciptionHandlers[channel] = function(payload) {
@@ -15,12 +15,18 @@ module.exports = {
 
       // DO SOMETHING HERE
       
-      // forward it to ANYLINK.CLIENT via bus
-      // var channel = "ANYLINK.[GET|POST|NET].CLIENT";
-      var channel = "ANYLINK.GET.CLIENT";
+      // forward it to ANYLINK.PROXY via bus
+      // var channel = "ANYLINK.[GET|POST|NET].PROXY/" + message.connectionId;
+      var channel = "ANYLINK.NET.PROXY/" + payload.connectionId;
       api.log(api.moment.now() + " - " + VERTICLE_ID + " > Publish to channel >", "info", { channel: channel, message: payload.message });
+      // var payload = {
+      //     messageType : channel,
+      //     serverId : message.serverId,
+      //     serverToken : message.serverToken,
+      //     connectionId: message.connectionId,
+      //     message: message
+      //   };
       payload.messageType = channel;
-
       api.redis.publish(payload);
     }
 
