@@ -37,6 +37,14 @@ exports.default = {
       ]
       
       ---------------------- */
+
+      get: [
+        { path: '/get', action: 'get_server' }
+      ],
+
+      post: [
+        { path: '/post', action: 'post_server' }
+      ]
       
     }
   }

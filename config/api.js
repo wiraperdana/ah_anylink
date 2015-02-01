@@ -5,7 +5,7 @@ exports.default = {
       serverName: 'anylink API',
       // id can be set here, or it will be generated dynamically.
       //  Be sure that every server you run has a unique ID (which will happen when generated dynamically)
-      //  id: 'myActionHeroServer',
+      id: 'anylink-1',
       // A unique token to your application that servers will use to authenticate to each other
       serverToken: 'anylink-1',
       // The welcome message seen by TCP and webSocket clients upon connection

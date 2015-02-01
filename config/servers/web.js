@@ -21,7 +21,7 @@ exports.default = {
         },
         // Route that actions will be served from; secondary route against this route will be treated as actions,
         //  IE: /api/?action=test == /api/test/
-        urlPathForActions : '/',
+        urlPathForActions : '/api/anylink',
         // Route that static files will be served from;
         //  path (relative to your project root) to serve static content from
         //  set to `null` to disable the file server entirely 

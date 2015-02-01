@@ -1,0 +1,27 @@
+{"level":"notice","message":"*** starting actionhero ***","timestamp":"2015-01-30T10:35:08.326Z"}
+{"level":"warning","message":"running with fakeredis","timestamp":"2015-01-30T10:35:08.365Z"}
+{"level":"notice","message":"pid: 7316","timestamp":"2015-01-30T10:35:08.407Z"}
+{"level":"notice","message":"server ID: 192.168.2.114","timestamp":"2015-01-30T10:35:08.407Z"}
+{"level":"notice","message":"starting server: web","timestamp":"2015-01-30T10:35:08.415Z"}
+{"level":"info","message":"actionhero member 192.168.2.114 has joined the cluster","timestamp":"2015-01-30T10:35:08.421Z"}
+{"level":"notice","message":"environment: development","timestamp":"2015-01-30T10:35:08.422Z"}
+{"level":"notice","message":"*** Server Started @ 2015-01-30 17:35:08 ***","timestamp":"2015-01-30T10:35:08.423Z"}
+{"level":"alert","message":"Shutting down open servers and stopping task processing","timestamp":"2015-01-30T10:35:10.155Z"}
+{"level":"notice","message":"*** starting actionhero ***","timestamp":"2015-01-30T10:35:14.130Z"}
+{"level":"warning","message":"running with fakeredis","timestamp":"2015-01-30T10:35:14.149Z"}
+{"level":"notice","message":"pid: 7318","timestamp":"2015-01-30T10:35:14.189Z"}
+{"level":"notice","message":"server ID: 192.168.2.114","timestamp":"2015-01-30T10:35:14.190Z"}
+{"level":"notice","message":"starting server: web","timestamp":"2015-01-30T10:35:14.197Z"}
+{"level":"info","message":"actionhero member 192.168.2.114 has joined the cluster","timestamp":"2015-01-30T10:35:14.202Z"}
+{"level":"notice","message":"environment: development","timestamp":"2015-01-30T10:35:14.203Z"}
+{"level":"notice","message":"*** Server Started @ 2015-01-30 17:35:14 ***","timestamp":"2015-01-30T10:35:14.203Z"}
+{"level":"alert","message":"Shutting down open servers and stopping task processing","timestamp":"2015-01-30T10:35:15.378Z"}
+{"level":"notice","message":"*** starting actionhero ***","timestamp":"2015-01-30T10:36:03.340Z"}
+{"level":"warning","message":"running with fakeredis","timestamp":"2015-01-30T10:36:03.359Z"}
+{"level":"notice","message":"pid: 7320","timestamp":"2015-01-30T10:36:03.399Z"}
+{"level":"notice","message":"server ID: 192.168.2.114","timestamp":"2015-01-30T10:36:03.400Z"}
+{"level":"notice","message":"starting server: web","timestamp":"2015-01-30T10:36:03.406Z"}
+{"level":"info","message":"actionhero member 192.168.2.114 has joined the cluster","timestamp":"2015-01-30T10:36:03.414Z"}
+{"level":"notice","message":"environment: development","timestamp":"2015-01-30T10:36:03.416Z"}
+{"level":"notice","message":"*** Server Started @ 2015-01-30 17:36:03 ***","timestamp":"2015-01-30T10:36:03.416Z"}
+{"level":"alert","message":"Shutting down open servers and stopping task processing","timestamp":"2015-01-30T10:36:04.575Z"}
