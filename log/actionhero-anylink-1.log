@@ -16959,3 +16959,28 @@
 {"messageType":"ANYLINK.NET.PROXY/a9bd3f89-85d6-4b28-95ef-b126df72be3c","serverId":"anylink-1","serverToken":"anylink-1","connectionId":"a9bd3f89-85d6-4b28-95ef-b126df72be3c","message":"02 Feb 2015 04:02:00 - ANYLINK.NET.PROXY > Receive response >","level":"info","timestamp":"2015-02-01T21:02:00.930Z"}
 {"to":"127.0.0.1","action":"proxy_net","params":"{\"action\":\"proxy_net\",\"apiVersion\":1}","duration":96,"error":"null","level":"info","message":"[ action @ net ]","timestamp":"2015-02-01T21:02:00.931Z"}
 {"level":"alert","message":"Shutting down open servers and stopping task processing","timestamp":"2015-02-01T21:02:09.761Z"}
+{"level":"notice","message":"*** starting actionhero ***","timestamp":"2015-02-11T07:18:09.534Z"}
+{"level":"notice","message":"*** starting actionhero ***","timestamp":"2015-02-11T07:18:26.737Z"}
+{"level":"info","message":"11 Feb 2015 14:18:26 - ANYLINK.IN.MEDIATOR > Listening on channel > ANYLINK.IN.MEDIATOR","timestamp":"2015-02-11T07:18:26.869Z"}
+{"level":"info","message":"11 Feb 2015 14:18:26 - ANYLINK.OUT.MEDIATOR > Listening on channel > ANYLINK.OUT.MEDIATOR","timestamp":"2015-02-11T07:18:26.870Z"}
+{"level":"info","message":"11 Feb 2015 14:18:26 - ANYLINK.GET.ENDPOINT > Listening on channel > ANYLINK.GET.ENDPOINT","timestamp":"2015-02-11T07:18:26.871Z"}
+{"level":"info","message":"11 Feb 2015 14:18:26 - ANYLINK.POST.ENDPOINT > Listening on channel > ANYLINK.POST.ENDPOINT","timestamp":"2015-02-11T07:18:26.871Z"}
+{"level":"info","message":"11 Feb 2015 14:18:26 - ANYLINK.NET.ENDPOINT > Listening on channel > ANYLINK.NET.ENDPOINT","timestamp":"2015-02-11T07:18:26.872Z"}
+{"level":"notice","message":"pid: 914","timestamp":"2015-02-11T07:18:26.881Z"}
+{"level":"notice","message":"server ID: anylink-1","timestamp":"2015-02-11T07:18:26.882Z"}
+{"level":"info","message":"actionhero member anylink-1 has joined the cluster","timestamp":"2015-02-11T07:18:26.885Z"}
+{"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","level":"info","message":"11 Feb 2015 14:18:26 - ANYLINK.NET.ENDPOINT > Error >","timestamp":"2015-02-11T07:18:26.887Z"}
+{"level":"notice","message":"starting server: web","timestamp":"2015-02-11T07:18:27.018Z"}
+{"level":"notice","message":"starting server: net","timestamp":"2015-02-11T07:18:27.019Z"}
+{"level":"notice","message":"environment: development","timestamp":"2015-02-11T07:18:27.022Z"}
+{"level":"notice","message":"*** Server Started @ 2015-02-11 14:18:27 ***","timestamp":"2015-02-11T07:18:27.022Z"}
+{"level":"info","message":"11 Feb 2015 14:18:31 - ANYLINK.NET.ENDPOINT > Connection closed, retrying to connect to","timestamp":"2015-02-11T07:18:31.889Z"}
+{"level":"info","message":"11 Feb 2015 14:18:31 - ANYLINK.NET.ENDPOINT > Listening on channel > ANYLINK.NET.ENDPOINT","timestamp":"2015-02-11T07:18:31.890Z"}
+{"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","level":"info","message":"11 Feb 2015 14:18:31 - ANYLINK.NET.ENDPOINT > Error >","timestamp":"2015-02-11T07:18:31.891Z"}
+{"level":"info","message":"11 Feb 2015 14:18:36 - ANYLINK.NET.ENDPOINT > Connection closed, retrying to connect to","timestamp":"2015-02-11T07:18:36.894Z"}
+{"level":"info","message":"11 Feb 2015 14:18:36 - ANYLINK.NET.ENDPOINT > Listening on channel > ANYLINK.NET.ENDPOINT","timestamp":"2015-02-11T07:18:36.895Z"}
+{"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","level":"info","message":"11 Feb 2015 14:18:36 - ANYLINK.NET.ENDPOINT > Error >","timestamp":"2015-02-11T07:18:36.896Z"}
+{"level":"info","message":"11 Feb 2015 14:18:41 - ANYLINK.NET.ENDPOINT > Connection closed, retrying to connect to","timestamp":"2015-02-11T07:18:41.902Z"}
+{"level":"info","message":"11 Feb 2015 14:18:41 - ANYLINK.NET.ENDPOINT > Listening on channel > ANYLINK.NET.ENDPOINT","timestamp":"2015-02-11T07:18:41.903Z"}
+{"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","level":"info","message":"11 Feb 2015 14:18:41 - ANYLINK.NET.ENDPOINT > Error >","timestamp":"2015-02-11T07:18:41.905Z"}
+{"level":"alert","message":"Shutting down open servers and stopping task processing","timestamp":"2015-02-11T07:18:43.358Z"}

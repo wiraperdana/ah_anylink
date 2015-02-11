@@ -1,15 +1,49 @@
 var VERTICLE_ID = "ANYLINK.POST.ENDPOINT";
 
-var HOST_ENDPOINT = "http://localhost:9001/api/anylink/dummy";
+var HOST_NAME = "HOST_POST_ENDPOINT";
 
 var unirest = require('unirest');
 
 module.exports = {
-  loadPriority:  1000,
+  loadPriority: 1000,
   startPriority: 1000,
-  stopPriority:  1000,
-  initialize: function(api, next){
-    
+  stopPriority: 1000,
+  initialize: function(api, next) {
+
+    var HOST_ENDPOINT = api.config.hosts.anylink_post_endpoint;
+
+    // RECEIVE RESPONSE
+    var message;
+
+    // forward it to ANYLINK.OUT.MEDIATOR via bus
+    var route = function(payload) {
+
+      // ------------- DO SOMETHING HERE -------------
+
+      // ---------------------------------------------
+
+      var channel = "ANYLINK.OUT.MEDIATOR";
+      payload.messageType = channel;
+
+      return payload;
+
+    }
+
+    // transform payload data
+    var transform = function(payload) {
+
+      // ------------- DO SOMETHING HERE -------------
+
+      // ---------------------------------------------
+
+      payload.properties = {
+        data: message,
+      };
+
+      return payload;
+
+    }
+
     // should receive message from ANYLINK.IN.MEDIATOR via bus then send it to HOST
     var channel = VERTICLE_ID;
     api.log(api.moment.now() + " - " + VERTICLE_ID + " > Listening on channel >", "info", channel);
@@ -17,41 +51,40 @@ module.exports = {
 
       api.log(api.moment.now() + " - " + VERTICLE_ID + " > Receive message >", "info", payload);
 
-      // DO SOMETHING HERE
-
       // CALL HOST
       unirest.post(HOST_ENDPOINT)
-      .send({
-        message: payload.message
-      })
-      .end(function(result) {
-        var response = "";
+        .send({
+          message: payload.properties.data
+        })
+        .end(function(result) {
 
-        if (result.error) {
-          api.log(api.moment.now() + " - " + VERTICLE_ID + " > Error >", "info", result.error);
-          response = result.error.code;
-        }
-        else {
-          response = result.body;
-        }
+          if (result.error) {
+            api.log(api.moment.now() + " - " + VERTICLE_ID + " > Error >", "info", result.error);
+            message = result.error.code;
+          } else {
+            message = result.body;
+          }
 
-        // DO SOMETHING HERE
+          api.log(api.moment.now() + " - " + VERTICLE_ID + " > " + HOST_NAME + " says >", "info", message);
 
-        // forward HOST response to ANYLINK.OUT.MEDIATOR via bus to be processed
-        var channel = "ANYLINK.OUT.MEDIATOR";
-        api.log(api.moment.now() + " - " + VERTICLE_ID + " > Publish to channel >", "info", { channel: channel, message: response });
-        payload.messageType = channel;
-        payload.message = response;
-        api.log("payload", "debug", payload);
-        api.redis.publish(payload);   
-      });
+          var payload = {
+            serverId: api.id,
+            serverToken: api.config.general.serverToken,
+            connectionId: connection.id,
+          };
+          payload = route(payload);
+          payload = transform(payload);
+
+          api.log(api.moment.now() + " - " + VERTICLE_ID + " > Publish >", "info", payload);
+          api.redis.publish(payload);
+        });
     }
     next();
   },
-  start: function(api, next){
+  start: function(api, next) {
     next();
   },
-  stop: function(api, next){
+  stop: function(api, next) {
     next();
   }
 }

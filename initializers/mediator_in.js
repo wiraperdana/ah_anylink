@@ -6,21 +6,46 @@ module.exports = {
   stopPriority:  1000,
   initialize: function(api, next){
 
+    // forward it to ANYLINK.ENDPOINT via bus
+    var route = function(payload) {  
+
+      // ------------- DO SOMETHING HERE -------------
+
+      // ---------------------------------------------
+
+      var channel = "ANYLINK.GET.ENDPOINT";
+      payload.messageType = channel;
+
+      return payload;
+
+    }
+
+    // transform payload data
+    var transform = function(payload) {
+
+      // ------------- DO SOMETHING HERE -------------
+
+      // ---------------------------------------------
+
+      payload.properties = {
+        data: payload.properties.data,
+      };
+
+      return payload;
+
+    }
+
     // should receive request from ANYLINK.PROXY
     var channel = VERTICLE_ID;
     api.log(api.moment.now() + " - " + VERTICLE_ID + " > Listening on channel >", "info", channel);
     api.redis.subsciptionHandlers[channel] = function(payload) {
 
-      api.log(api.moment.now() + " - " + VERTICLE_ID + " > Receive message >", "info", payload);
+      api.log(api.moment.now() + " - " + VERTICLE_ID + " > Receive >", "info", payload);
 
-      // DO SOMETHING HERE
-      
-      // forward it to ANYLINK.ENDPOINT via bus
-      // var channel = "ANYLINK.[GET|POST|NET].ENDPOINT";``
-      var channel = "ANYLINK.GET.ENDPOINT";
-      api.log(api.moment.now() + " - " + VERTICLE_ID + " > Publish to channel >", "info", { channel: channel, message: payload.message });
-      payload.messageType = channel;
+      payload = route(payload);
+      payload = transform(payload);
 
+      api.log(api.moment.now() + " - " + VERTICLE_ID + " > Publish >", "info", payload);
       api.redis.publish(payload);
     }
 

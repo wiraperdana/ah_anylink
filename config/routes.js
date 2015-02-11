@@ -39,11 +39,11 @@ exports.default = {
       ---------------------- */
 
       get: [
-        { path: '/get', action: 'proxy_get' }
+        { path: '/api/anylink/get', action: 'proxy_get' }
       ],
 
       post: [
-        { path: '/post', action: 'proxy_post' }
+        { path: '/api/anylink/post', action: 'proxy_post' }
       ]
       
     }

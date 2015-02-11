@@ -24,33 +24,63 @@ exports.action = {
 
   run: function(api, connection, next){
     
-    api.log(api.moment.now() + " - " + VERTICLE_ID + " > Request received > ", "info", connection.params);
+    var sequence_name = "SEQUENCE_NAME";
+    api.log("########################################################################################################################");
+    api.log(api.moment.now() + " - " + sequence_name + " Sequence");
+    api.log("########################################################################################################################");
+    api.log(api.moment.now() + " - " + VERTICLE_ID + " > Request > ", "info", connection.params);
 
     // RECEIVE REQUEST PARAMETERS
     var message = connection.rawConnection.socketDataString;
 
-    // should send the request to ANYLINK.MEDIATOR via bus to be processed
-    var channel = "ANYLINK.IN.MEDIATOR";
-    api.log(api.moment.now() + " - " + VERTICLE_ID + " > Publish to channel >", "info", { channel: channel, message: message });
-    var payload = {
-        messageType : channel,
-        serverId : api.id,
-        serverToken : api.config.general.serverToken,
-        connectionId: connection.id,
-        message: message
+    // forward it to ANYLINK.MEDIATOR via bus
+    var route = function(payload) {
+
+      // ------------- DO SOMETHING HERE -------------
+
+      // ---------------------------------------------
+
+      var channel = "ANYLINK.IN.MEDIATOR";
+      payload.messageType = channel;
+
+      return payload;
+
+    }
+
+    // transform payload data
+    var transform = function(payload) {
+
+      // ------------- DO SOMETHING HERE -------------
+
+      // ---------------------------------------------
+
+      payload.properties = {
+        data: message,
       };
+
+      return payload;
+
+    }
+
+    var payload = {
+      serverId: api.id,
+      serverToken: api.config.general.serverToken,
+      connectionId: connection.id,
+    };
+    payload = route(payload);
+    payload = transform(payload);
+
+    api.log(api.moment.now() + " - " + VERTICLE_ID + " > Publish >", "info", payload);
     api.redis.publish(payload);
 
     // SUBSCRIBE TO "ANYLINK.NET.PROXY" CHANNEL
     var channel = VERTICLE_ID + "/" + connection.id;
-    api.log(api.moment.now() + " - " + VERTICLE_ID + " > Subscribe to channel >", "info", channel);
+    api.log(api.moment.now() + " - " + VERTICLE_ID + " > Subscribe >", "info", channel);
     api.redis.subsciptionHandlers[channel] = function(payload) {
 
-      api.log(api.moment.now() + " - " + VERTICLE_ID + " > Receive response >", "info", payload);
+      api.log(api.moment.now() + " - " + VERTICLE_ID + " > Receive >", "info", payload);
 
-      // DO SOMETHING HERE
-
-      connection.response = payload.message;
+      connection.response = payload.properties.data;
 
       api.redis.client.unsubscribe(channel);
 

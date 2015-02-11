@@ -1,5 +1,5 @@
 var net = require('net');
-
+var uuid = require('node-uuid');
 var util = require('util');
 
 var initialize = function(api, options, next){
@@ -129,6 +129,7 @@ var initialize = function(api, options, next){
     }
     rawConnection.socketDataString = '';
     server.buildConnection({
+      id: uuid.v4(),
       rawConnection  : rawConnection,
       remoteAddress  : rawConnection.remoteAddress,
       remotePort     : rawConnection.remotePort

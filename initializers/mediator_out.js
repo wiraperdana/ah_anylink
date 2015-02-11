@@ -6,27 +6,46 @@ module.exports = {
   stopPriority:  1000,
   initialize: function(api, next){
 
+    // forward it to ANYLINK.ENDPOINT via bus
+    var route = function(payload) {  
+
+      // ------------- DO SOMETHING HERE -------------
+
+      // ---------------------------------------------
+
+      var channel = "ANYLINK.GET.ENDPOINT";
+      payload.messageType = channel;
+
+      return payload;
+
+    }
+
+    // transform payload data
+    var transform = function(payload) {
+
+      // ------------- DO SOMETHING HERE -------------
+
+      // ---------------------------------------------
+
+      payload.properties = {
+        data: payload.properties.data,
+      };
+
+      return payload;
+
+    }
+
     // should receive request from ANYLINK.CLIENT
     var channel = VERTICLE_ID;
     api.log(api.moment.now() + " - " + VERTICLE_ID + " > Listening on channel >", "info", channel);
     api.redis.subsciptionHandlers[channel] = function(payload) {
 
-      api.log(api.moment.now() + " - " + VERTICLE_ID + " > Receive message >", "info", payload);
+      api.log(api.moment.now() + " - " + VERTICLE_ID + " > Receive >", "info", payload);
 
-      // DO SOMETHING HERE
+      payload = route(payload);
+      payload = transform(payload);
       
-      // forward it to ANYLINK.PROXY via bus
-      // var channel = "ANYLINK.[GET|POST|NET].PROXY/" + message.connectionId;
-      var channel = "ANYLINK.NET.PROXY/" + payload.connectionId;
-      api.log(api.moment.now() + " - " + VERTICLE_ID + " > Publish to channel >", "info", { channel: channel, message: payload.message });
-      // var payload = {
-      //     messageType : channel,
-      //     serverId : message.serverId,
-      //     serverToken : message.serverToken,
-      //     connectionId: message.connectionId,
-      //     message: message
-      //   };
-      payload.messageType = channel;
+      api.log(api.moment.now() + " - " + VERTICLE_ID + " > Publish >", "info", payload);
       api.redis.publish(payload);
     }
 
