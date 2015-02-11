@@ -1,7 +1,5 @@
 var VERTICLE_ID = "ANYLINK.NET.ENDPOINT";
 
-var HOST_NAME = "HOST_NET_ENDPOINT";
-
 var net = require('net');
 
 module.exports = {
@@ -12,7 +10,8 @@ module.exports = {
 
     var channel = VERTICLE_ID;
 
-    var HOST_ENDPOINT = api.config.hosts.anylink_net_endpoint.split(":");
+    var HOST_NAME = api.config.hosts.anylink_net_endpoint.name;
+    var HOST_ENDPOINT = api.config.hosts.anylink_net_endpoint.address.split(":");
     var HOST = HOST_ENDPOINT[0];
     var PORT = HOST_ENDPOINT[1];
     var RETRY_INTERVAL = 5000;

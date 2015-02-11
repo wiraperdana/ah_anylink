@@ -1,7 +1,5 @@
 var VERTICLE_ID = "ANYLINK.GET.ENDPOINT";
 
-var HOST_NAME = "HOST_GET_ENDPOINT";
-
 var unirest = require('unirest');
 
 module.exports = {
@@ -10,7 +8,8 @@ module.exports = {
   stopPriority: 1000,
   initialize: function(api, next) {
 
-    var HOST_ENDPOINT = api.config.hosts.anylink_get_endpoint;
+    var HOST_NAME = api.config.hosts.anylink_get_endpoint.name;
+    var HOST_ENDPOINT = api.config.hosts.anylink_get_endpoint.address;
 
     // RECEIVE RESPONSE
     var message;
