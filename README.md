@@ -44,10 +44,13 @@ telnet localhost 9001
 
 Hosts addresses are defined in config/hosts.js file.
 
-### DJP Host
-TCP 10.252.1.47:8277
+### GET_HOST
+/GET http://localhost:8080/dummy
 
-### Sprint Network Management
-/GET http://172.17.0.21:80/djp/networkMgt.php?{infoCode}
+### POST_HOST
+/POST http://localhost:8080/dummy
+
+### NET_HOST
+TCP localhost:25000
 
 
